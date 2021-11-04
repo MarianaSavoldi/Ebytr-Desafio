@@ -6,7 +6,7 @@ const OPTION = {
   useUnifiedTopology: true,
 };
 
-const MONGO_DB_URL = process.env.DB_URL || 'mongodb://mongodb:27017/Ebytr';
+const MONGO_DB_URL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/Ebytr';
 const MONGO_DB_NAME = process.env.DB_NAME || 'Ebytr';
 
 const connection = async () =>

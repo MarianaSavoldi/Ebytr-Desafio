@@ -32,8 +32,25 @@ const removeTask = async ({ id }) => {
   return true
 };
 
+const updateTask = async({ id, title, created, status }) => {
+  const db = await connection();
+  const findTask = await db.collection('tasks').findOne({_id: ObjectId(id)});
+  if (!findTask) {
+    return false;
+  }
+  await db.collection('tasks')
+    .updateOne({ _id: ObjectId(id) }, { $set: { title, created, status } });
+    return {
+      _id: ObjectId(id),
+      title,
+      created,
+      status,
+    };
+};
+
 module.exports = {
   getAll,
   createTask,
   removeTask,
+  updateTask,
 };

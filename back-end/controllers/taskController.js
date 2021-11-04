@@ -49,4 +49,21 @@ route.delete('/:id', async (req, res) => {
   }
 });
 
+route.put('/:id', validTitle, validCreated, validStatus, async (req, res) => {
+  try {
+    const { id } = req.params;
+  const { title, created, status } = req.body;
+  const updatedTask = await service.updateTaskService({ id, title, created, status });
+  if (updatedTask === false) {
+    return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
+      .json({ message: 'Task not found'});
+  }
+  return res.status(StatusCodes.OK).json(updatedTask);
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(errorMessage);
+  }
+});
+
 module.exports = route;

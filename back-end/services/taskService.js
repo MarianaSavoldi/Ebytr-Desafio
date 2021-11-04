@@ -8,6 +8,12 @@ const getAllService = async () => {
   return { tasks };
 };
 
+const createTaskService = async ({ title, created, status }) => {
+  const task = await model.createTask({ title, created, status });
+  return task;
+}
+
 module.exports = {
   getAllService,
+  createTaskService,
 };

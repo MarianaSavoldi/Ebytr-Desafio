@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.status(200).send('Welcome to your task list :)');
 });
 
-app.use('/task', taskController);
+app.use('/tasks', taskController);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const model = require('../models/taskModel');
 
 const getAllService = async () => {
@@ -13,7 +14,19 @@ const createTaskService = async ({ title, created, status }) => {
   return task;
 }
 
+const removeTaskService = async ({ id }) => {
+  if (!ObjectId.isValid(id)) {
+    return false;
+  } 
+  const task = await model.removeTask({ id });
+  if (task === false) {
+    return false;
+  }
+  return true;
+}
+
 module.exports = {
   getAllService,
   createTaskService,
+  removeTaskService,
 };

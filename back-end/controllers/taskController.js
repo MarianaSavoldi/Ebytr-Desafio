@@ -31,6 +31,22 @@ route.post('/post', validTitle, validCreated, validStatus, async (req, res) => {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send(errorMessage);
   }
-})
+});
+
+route.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedTask = await service.removeTaskService({ id });
+    if (deletedTask === false) {
+      return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
+        .json({ message: 'Task not found'});
+    }
+    return res.status(StatusCodes.OK).json({ message: 'Task deleted successfully!'});
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(errorMessage);
+  }
+});
 
 module.exports = route;
